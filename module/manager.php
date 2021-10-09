@@ -11,6 +11,9 @@ if (is_file(__DIR__ . "/auth/auth.php")) require_once(__DIR__ . "/auth/auth.php"
 foreach (glob("router/*.php") as $f) {
     require_once($f);
 }
+
+
+
 //Xử lý url
 if (isset($_SERVER['PATH_INFO'])) {
     $client_url = $_SERVER['PATH_INFO'];

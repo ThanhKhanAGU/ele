@@ -11,8 +11,8 @@ function view($url,$arr = [])
     if(strpos($data, '@extend') !== false)// Xử lý kế thừa
     { 
         $url_con = preg_replace('/@extend\(|\)(.|\s)+/', '', trim($data));
-        $myfile = fopen($url_con, "r") or die("View Not Found");
-        $data_extend = fread($myfile, filesize($url_con));
+        $myfile = fopen('app/view/'.$url_con, "r") or die("View Not Found");
+        $data_extend = fread($myfile, filesize('app/view/'.$url_con));
         fclose($myfile);
         preg_match_all('/@paste\((.)+\)/', $data_extend, $output_array);
         foreach ($output_array[0] as $key_item) {

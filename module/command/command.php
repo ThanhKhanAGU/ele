@@ -57,7 +57,7 @@ print_r(
        \e[39m║ \e[36mDatebase: \e[39mQuản lý cơ sở dữ liệu - trực tiếp trên termial.                  ║  │
        \e[39m║    ├─ \e[33m[\e[32m-db  -check  \e[33m]\e[39m:  Kiểm tra kết nối đến CSDL chưa.                    ║  │
        \e[39m║    ├─ \e[33m[\e[32m-db  -reset  \e[33m]\e[39m:  Xóa toàn bộ cơ sở dữ liệu.                         ║  │
-       \e[39m║    ├─ \e[33m[\e[32m-db  -excute \e[33m]\e[39m:  Thực hiện kịch bản tạo bởi lệnh `-tb`.             ║  │
+       \e[39m║    ├─ \e[33m[\e[32m-db  -execute \e[33m]\e[39m:  Thực hiện kịch bản tạo bởi lệnh `-tb`.             ║  │
        \e[39m║    ├─ \e[33m[\e[32m-db  `query` \e[33m]\e[39m:  Thực hiện câu `query` để trả về kết quả mong muốn. ║  │
        \e[39m║    ├─ \e[33m[\e[32m-tb  `name`  \e[33m]\e[39m:  Tạo ra một kịch bản tạo bảng `name`.               ║  │
        \e[39m║    └─ \e[33m[\e[32m-add `name`  \e[33m]\e[39m:  Thêm dữ liệu vào bảng `name`, [*] để thêm tất cả.  ║──┘
