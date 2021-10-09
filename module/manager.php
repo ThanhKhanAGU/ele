@@ -27,7 +27,7 @@ if ($callback !== false) {
         if (is_string($callback[0]['method'])) {
             $class = explode("@", $callback[0]["method"]);
 
-            require_once($class[0] . '.controller.php');
+            require_once('app/controller/'.$class[0] . '.controller.php');
 
             $controller_name = $class[0] . "Controller";
             $method = $class[1];
