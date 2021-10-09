@@ -4,11 +4,11 @@
     private static $post = [];
     public static function get($url, $methedController, $url_se = NULL)
     {
-        self::$get[] = [$url => ["method" => $methedController, "url_sub" => $url_se]];
+        self::$get[$url] = ["method" => $methedController, "url_sub" => $url_se];
     }
     public static function post($url, $methedController, $url_se = NULL)
     {
-        self::$post[] = [$url => ["method" => $methedController, "url_sub" => $url_se]];
+        self::$post[$url] = ["method" => $methedController, "url_sub" => $url_se];
     }
     private static function check_one_url($url, $key, $value)
     {
@@ -22,6 +22,7 @@
     }
     public static function checkurl($url, $method)
     {
+       
         if ($method == "GET") {
             foreach (self::$get as $key => $value) {
                 if ($res = self::check_one_url($url, $key, $value))
