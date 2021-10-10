@@ -7,7 +7,7 @@ class mvc {
 class ".$name."Controller extends controller{   
     
 }";
-    $path = "app/controller/";
+    $path = "app/controller";
     write($path,$name.".controller.php", $data);
     }
     public static function model($name)
