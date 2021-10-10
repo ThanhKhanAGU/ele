@@ -1,4 +1,4 @@
-<?php 
+<?php
 class db
 {
     ##################################
@@ -39,10 +39,11 @@ class db
         }
     }
     public static function exeNonQuery($query)
-    {
+    {     
         date_default_timezone_set('asia/ho_chi_minh');
         $db = self::get_dataconfig();
         $con = new mysqli($db['SERVER'], $db['USERNAME'], $db['PASSWORD'], $db['DATABASE']);
+        mysqli_set_charset($con, 'UTF8');
         $check = ($con->query($query) === true);
         $con->close();
         return $check;
