@@ -84,7 +84,7 @@ class db
                 $dataTable[] = (object) $dataRow;
             }
             $con->close();
-            return $dataTable;
+            return $dataTable ?? [];
         } else {
             return [];
         }

@@ -62,7 +62,7 @@ class model
         if (($classname = get_called_class()) !== "model")
             return (new mysql($classname))->where($id)->first();
         else
-            return [];
+            return false;
     }
     public static function where(...$obj)
     {
@@ -84,9 +84,9 @@ class mysql
     public function first()
     {
         $arr = $this->get(1);
-        if (count($arr) > 0)
+        if(count($arr)>0)
             return array_shift($arr);
-        else
+        else 
             return [];
     }
     public function get(int $limit = NULL) 
@@ -100,7 +100,7 @@ class mysql
                 }
                 $result[$obj->id] = $obj;
             }
-            return $result;
+            return $result ?? [];
         } else {
             foreach (db::exeQuery($this->sql) as $item) {
                 $class = $this->table;

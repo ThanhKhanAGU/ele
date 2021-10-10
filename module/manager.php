@@ -13,7 +13,6 @@ foreach (glob("router/*.php") as $f) {
 }
 
 
-
 //Xử lý url
 if (isset($_SERVER['PATH_INFO'])) {
     $client_url = $_SERVER['PATH_INFO'];
