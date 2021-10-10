@@ -42,39 +42,5 @@ if ($callback !== false) {
         header('Location: ' . __LOCAL__ . $callback[0]['url_sub']);
     }
 } else {
-?>
-    <!DOCTYPE html>
-    <html lang="vi">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Not Found</title>
-        <link rel="shortcut icon" href="module/view/icon.png" type="image/x-icon">
-        <style>
-            body {
-                padding: 0;
-                margin: 0;
-                width: 100vw;
-                height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            h1 {
-                font-size: 6vw;
-                text-transform: uppercase;
-                color: rgb(5, 20, 49);
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            }
-        </style>
-    </head>
-
-    <body>
-        <h1>404 | Not found</h1>
-    </body>
-
-    </html>
-<?php
+    view('message',['textHead'=>"Not Found",'textContent'=>'404 | NOT FOUND']);
 }

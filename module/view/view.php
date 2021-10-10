@@ -2,6 +2,7 @@
 if(is_file("function/function.view.php"))require_once("function/function.view.php");
 function view($url,$arr = [])
 {
+    if($url == 'message') $url = '../../module/error/index.html';
     $url = str_replace('\\','/',$url);
     $url = "app/view/".$url;
     $myfile = fopen($url, "r") or die("View Not Found");
