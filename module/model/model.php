@@ -83,8 +83,11 @@ class mysql
     }
     public function first()
     {
-        $data = db::exeQuery($this->sql .= " LIMIT 1") ?? [];
-        return (count($data) === 1) ? array_values($data)[0] : NULL;
+        $arr = $this->get(1);
+        if (count($arr) > 0)
+            return array_shift($arr);
+        else
+            return [];
     }
     public function get(int $limit = NULL) 
     {
