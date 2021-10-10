@@ -67,7 +67,7 @@ print_r(
 }
 
 require_once(__DIR__."/mvc.php");
-
+if($argc>2){
     if(strtolower($argv[1]) == '-tool')
     {
        
@@ -254,5 +254,6 @@ foreach($data as $item)
         }
         die();
     }
-
+}else{
     logo();
+}
