@@ -77,7 +77,7 @@ function view($url,$arr = [])
         $data = str_replace("@$function($value)", "<?php }$function($value){?>", $data);
     }
 
-    preg_match_all('/@(\w|\d)+\((.|\b)+\)/', $data, $output_array);
+    preg_match_all('/@(\w|\d)+\((.|\b)*\)/', $data, $output_array);
     foreach ($output_array[0] as $item) {
 
         $value = preg_replace('/(@(\w|\d)+\()|(\)\z)/', '', trim($item));
@@ -91,21 +91,14 @@ function view($url,$arr = [])
 
     $data = str_replace(["{{","}}","{!","!}"], ["<?php print_r(",");?>","<?php ","?>"], $data);
     
-    $value = "<?php ";
+    $value = "";
     foreach($arr as $key => $item)
     {
         $value.=" \$$key = \$arr['$key'] ?? null;";
     }
     $value .= "?>";
     $data = $value.$data;
-
-    $myfile = fopen(__DIR__."/cache.php", "w");
-    fwrite($myfile, $data);
-    fclose($myfile);
-
-    require_once(__DIR__ . "/cache.php");
-    unlink(__DIR__ . "/cache.php");
-    return $data;
+    eval($data);
 }
 
 function json(...$array)

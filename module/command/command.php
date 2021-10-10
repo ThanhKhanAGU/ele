@@ -17,13 +17,15 @@ function write($path, $name, $data)
     }
     if(is_file($path . "/" . $name))
     {
-        echo "\e[33mFile `$path/$name` đã tồn tại không thể ghi đè.\e[39m\n";
+        $file = $path . '/' . $name;
+        echo "\e[33mFile `$file` đã tồn tại không thể ghi đè.\e[39m\n";
     }else
     {
-        $myfile = fopen($path . "/" . $name, "w");
+        $file = $path . '/' . $name;
+        $myfile = fopen($file, "w");
         fwrite($myfile, $data);
         fclose($myfile);
-        echo "\e[32mĐã Tạo file `$name` Thành Công.\e[39m\n";
+        echo "\e[32mĐã Tạo file `".$file."` Thành Công.\e[39m\n";
     }
 }
 function logo()
@@ -57,7 +59,7 @@ print_r(
        \e[39m║ \e[36mDatebase: \e[39mQuản lý cơ sở dữ liệu - trực tiếp trên termial.                  ║  │
        \e[39m║    ├─ \e[33m[\e[32m-db  -check  \e[33m]\e[39m:  Kiểm tra kết nối đến CSDL chưa.                    ║  │
        \e[39m║    ├─ \e[33m[\e[32m-db  -reset  \e[33m]\e[39m:  Xóa toàn bộ cơ sở dữ liệu.                         ║  │
-       \e[39m║    ├─ \e[33m[\e[32m-db  -execute \e[33m]\e[39m:  Thực hiện kịch bản tạo bởi lệnh `-tb`.             ║  │
+       \e[39m║    ├─ \e[33m[\e[32m-db  -execute\e[33m]\e[39m:  Thực hiện kịch bản tạo bởi lệnh `-tb`.             ║  │
        \e[39m║    ├─ \e[33m[\e[32m-db  `query` \e[33m]\e[39m:  Thực hiện câu `query` để trả về kết quả mong muốn. ║  │
        \e[39m║    ├─ \e[33m[\e[32m-tb  `name`  \e[33m]\e[39m:  Tạo ra một kịch bản tạo bảng `name`.               ║  │
        \e[39m║    └─ \e[33m[\e[32m-add `name`  \e[33m]\e[39m:  Thêm dữ liệu vào bảng `name`, [*] để thêm tất cả.  ║──┘
@@ -66,8 +68,6 @@ print_r(
 
 require_once(__DIR__."/mvc.php");
 
-if($argc === 3)
-{
     if(strtolower($argv[1]) == '-tool')
     {
        
@@ -162,6 +162,7 @@ foreach($data as $item)
     var_dump($dt->save());
 }');
         }
+    die();
     }
     if(strtolower($argv[1]) == "-db")
     {
@@ -179,23 +180,33 @@ foreach($data as $item)
         {
             table::show(str_replace("`","", $argv[2]));
         }
+    die();
     }
     if(strtolower($argv[1]) === "-tb")
     {
-           $file = table::create($argv[2]);
-            write("database","_".count(glob("database/*.php"))."_".$argv[2].".php",$file[0]);
-            write("database/data", $argv[2] . ".php", $file[1]);
+        
+        for ($i = 2; $i <$argc; $i ++) {
+            $file = table::create($argv[$i]);
+            write("database", "_" . count(glob("database/*.php")) . "_" . $argv[$i] . ".php", $file[0]);
+            write("database/data", $argv[$i] . ".php", $file[1]);
+        }
+    die();
     }
     if(strtolower($argv[1]) === "-add")
     {
+
         $name = $argv[2];
         if($name !== "*" )
-        {  
-            if (is_file("database/data/$name.php")) {
-                require_once("database/data/$name.php");
-                echo "\e[32mĐã Tạo dữ liệu vào bảng `$name` Thành Công.\e[39m\n";
-            }else
-            echo "\e[31mKhông tìm thấy dữ liệu nào.\e[39m\n";
+        {
+            
+            for ($i = 2; $i <$argc; $i ++) {
+                $name = $argv[$i];
+                if (is_file("database/data/$name.php")) {
+                    require_once("database/data/$name.php");
+                    echo "\e[32mĐã Tạo dữ liệu vào bảng `$name` Thành Công.\e[39m\n";
+                } else
+                echo "\e[31mKhông tìm thấy dữ liệu nào.\e[39m\n";
+            }
         }else
         {
             foreach(glob("database/data/*.php") as $data_table)
@@ -204,25 +215,44 @@ foreach($data as $item)
                 echo "\e[32mĐã Tạo dữ liệu từ `$data_table` Thành Công.\e[39m\n";
             }
         }
+    die();
     }
 
     if (strtolower($argv[1]) === "-model") {
-        mvc::model($argv[2]);
+
+        
+        for ($i = 2; $i <$argc; $i ++) {
+            mvc::model($argv[$i]);
+        }
+    die();
     }
 
     if (strtolower($argv[1]) === "-controller") {
-        mvc::controller($argv[2]);
+        
+       for ($i=2; $i <$argc; $i++) {
+            mvc::controller($argv[$i]);
+            write('router', $argv[$i].".router.php","<?php\n # ROUTER FOR ".strtoupper($argv[$i]));
+       }
+    die();
     }
 
     if (strtolower($argv[1]) === "-view") {
-        write('app/view',$argv[2].".html","");
+        for ($i = 2; $i < $argc; $i ++) {
+            write('app/view', $argv[2] . ".html", "");
+        }
+        echo (' K:\workstation\Web\build\ele\module\command\command.php on line 21 ');
+        die();
     }
 
     if (strtolower($argv[1]) === "-mvc") {
 
-        mvc::model($argv[2]);
-        mvc::controller($argv[2]);
-
-        write('app/view', $argv[2] . ".html", "");
+        for ($i = 2; $i < $argc; $i ++) {
+            mvc::model($argv[$i]);
+            mvc::controller($argv[$i]);
+            write('router', $argv[$i] . ".router.php", "<?php\n # ROUTER FOR " . strtoupper($argv[$i]));
+            write('app/view', $argv[$i] . ".html", "");
+        }
+        die();
     }
-} else logo();
+
+    logo();
