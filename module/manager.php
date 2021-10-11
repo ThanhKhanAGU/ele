@@ -41,5 +41,6 @@ if ($callback !== false) {
         header('Location: ' . __LOCAL__ . $callback[0]['url_sub']);
     }
 } else {
+    http_response_code(404);
     view('message',['textHead'=>"Not Found",'textContent'=>'404 | NOT FOUND']);
 }
